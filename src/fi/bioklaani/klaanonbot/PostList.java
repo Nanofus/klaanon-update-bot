@@ -1,12 +1,14 @@
 package fi.bioklaani.klaanonbot;
 
+import java.lang.Iterable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
 /** A sorted, immutable list of {@code Post}s.*/
-public class PostList {
+public class PostList implements Iterable<Post> {
 	
 	private final Set<Post> posts;
 	
@@ -29,6 +31,8 @@ public class PostList {
 	public boolean isEmpty() { return posts.isEmpty(); }
 	
 	public boolean contains(Post post) { return posts.contains(post); }
+	
+	public int size() { return posts.size(); }
 	
 	/** Returns a {@code PostList} that contains all {@code Post}s that are in
 	* this {@code PostList} or the argument {@code PostList}.*/
@@ -63,6 +67,10 @@ public class PostList {
 		return new PostList(newSet);
 	}
 	
+	public Iterator<Post> iterator() {
+		return new PostListIterator(this);
+	}
+	
 	@Override
 	public String toString() { return posts.toString(); }
 	
@@ -78,5 +86,17 @@ public class PostList {
 	@Override
 	public int hashCode() {
 		return posts.hashCode();
+	}
+	
+	private static class PostListIterator implements Iterator<Post> {
+	
+		private Iterator<Post> iter;
+		
+		private PostListIterator(PostList list) {
+			this.iter = list.posts.iterator();
+		}
+		
+		public boolean hasNext() { return iter.hasNext(); }
+		public Post next() { return iter.next(); }
 	}
 }
