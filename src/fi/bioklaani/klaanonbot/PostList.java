@@ -39,7 +39,8 @@ public class PostList {
 		return new PostList(newSet);
 	}
 	
-	/** Returns a new {@code PostList} that contains all {@code Post}s that are 		* both in this {@code PostList} and the argument {@code PostList}.*/
+	/** Returns a new {@code PostList} that contains all {@code Post}s that are
+	* both in this {@code PostList} and the argument {@code PostList}.*/
 	public PostList intersection(PostList other) {
 		Set<Post> newSet = new TreeSet<>();
 		for(Post post : posts) {

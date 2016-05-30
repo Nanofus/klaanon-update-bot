@@ -5,8 +5,7 @@ import java.net.URL;
 import java.time.Instant;
 
 /** Describes a post, composed of the name, the author, the date and the
-* URL. Implements {@link Comparable} and sorts based only on the date.
-* Note that this is inconsistent with the notion of equality of this class.*/
+* URL. Implements {@link Comparable}.*/
 public class Post implements Comparable<Post> {
 
 	public final String name, author, url;
@@ -37,11 +36,20 @@ public class Post implements Comparable<Post> {
 	
 	@Override
 	public int hashCode() {
-		return (name.hashCode() << 24) ^ (author.hashCode() << 16) ^ (url.hashCode() << 8) ^ (date.hashCode());
+		return (name.hashCode() << 24)
+				^ (author.hashCode() << 16)
+				^ (url.hashCode() << 8)
+				^ (date.hashCode());
 	}
 	
 	@Override
 	public int compareTo(Post other) {
-		return date.compareTo(other.date);
+		int i = date.compareTo(other.date);
+		if(i != 0) { return i; }
+		i = name.compareTo(other.name);
+		if(i != 0) { return i; }
+		i = author.compareTo(other.name);
+		if(i != 0) { return i; }
+		return url.compareTo(other.name);
 	}
 }
