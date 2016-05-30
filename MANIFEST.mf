@@ -1,0 +1,2 @@
+Main-Class: fi.bioklaani.klaanonbot.Main
+
