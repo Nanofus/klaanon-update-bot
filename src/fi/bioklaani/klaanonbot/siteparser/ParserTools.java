@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 
 import fi.bioklaani.klaanonbot.BotException;
 import fi.bioklaani.klaanonbot.Post;
+import fi.bioklaani.klaanonbot.Utils;
 
 /** Contains tools related to parsing the Klaanon website.*/
 public class ParserTools {
@@ -39,23 +40,11 @@ public class ParserTools {
 		try {
 			URLConnection connection = new URL(SITE_URL).openConnection();
 			
-			return readBufferedReader(new BufferedReader(
+			return Utils.readBufferedReader(new BufferedReader(
 					new InputStreamReader(connection.getInputStream(), "UTF-8")));
 		} catch(IOException exc) {
 			throw new BotException(exc, "Failed to load " + SITE_URL);
 		}
-	}
-	
-	private static String readBufferedReader(BufferedReader reader) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		
-		String line = "";
-		while((line = reader.readLine()) != null) {
-			sb.append(line);
-		}
-		
-		reader.close();
-		return sb.toString();
 	}
 	
 	static List<String> extractPosts(String html) {

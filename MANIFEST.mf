@@ -1,2 +1,3 @@
 Main-Class: fi.bioklaani.klaanonbot.Main
+Class-Path: lib/gson-2.6.2.jar
 
