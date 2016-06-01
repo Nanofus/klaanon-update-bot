@@ -22,8 +22,8 @@ public class UpdateFormatter {
 			return "Uusi viesti \"" + oldest.name + "\" kirjoittajalta "
 				+ oldest.author + " " + timeString + " sitten:\n" + oldest.url; 
 		} else {
-			return amount + " uutta viestiä, vanhin \"" + oldest.name + "\" "
-				+ " kirjoittajalta " + oldest.author + " " + timeString + " sitten:\n" + oldest.url;
+			return amount + " uutta viestiä, vanhin \"" + oldest.name + "\" kirjoittajalta "
+				+ oldest.author + " " + timeString + " sitten:\n" + oldest.url;
 				
 		}
 	}
