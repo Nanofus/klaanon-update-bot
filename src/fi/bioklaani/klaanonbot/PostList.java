@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 /** A sorted, immutable list of {@code Post}s.*/
 public class PostList implements Iterable<Post> {
@@ -33,6 +34,17 @@ public class PostList implements Iterable<Post> {
 	public boolean contains(Post post) { return posts.contains(post); }
 	
 	public int size() { return posts.size(); }
+	
+	public Post oldest() { return posts.iterator().next(); }
+	
+	public Post newest() {
+		Iterator<Post> iter = posts.iterator();
+		Post last = iter.next();
+		while((last = iter.next()) != null) {}
+		return last;
+	}
+	
+	public Stream<Post> stream() { return posts.stream(); }
 	
 	/** Returns a {@code PostList} that contains all {@code Post}s that are in
 	* this {@code PostList} or the argument {@code PostList}.*/

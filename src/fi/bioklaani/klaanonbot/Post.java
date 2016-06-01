@@ -2,16 +2,16 @@ package fi.bioklaani.klaanonbot;
 
 import java.lang.Comparable;
 import java.net.URL;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 /** Describes a post, composed of the name, the author, the date and the
 * URL. Implements {@link Comparable}.*/
 public class Post implements Comparable<Post> {
 
 	public final String name, author, url;
-	public final Instant date;
+	public final LocalDateTime date;
 
-	public Post(String name, String author, Instant date, String url) {
+	public Post(String name, String author, LocalDateTime date, String url) {
 		this.name = name;
 		this.author = author;
 		this.date = date;

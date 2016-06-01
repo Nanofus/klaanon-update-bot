@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import fi.bioklaani.klaanonbot.BotException;
 import fi.bioklaani.klaanonbot.Post;
@@ -35,6 +38,8 @@ public class ParserTools {
 			
 	final static Pattern POST_SPAN_PATTERN =
 			Pattern.compile("<span>(.*?)<\\/span>");
+			
+	final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d.M.u");
 	
 	static String readSite() {
 		try {
@@ -85,6 +90,7 @@ public class ParserTools {
 		if(!spanMatcher.find()) { throw new BotException("Couldn't parse author in " + html); }
 		String author = spanMatcher.group(1);
 		
-		return new Post(title, author, DateTools.toInstant(date.trim()), url);
+		return new Post(title, author, LocalDateTime.from(LocalDate.parse(date.trim(), DATE_FORMATTER)
+				.atStartOfDay()), url);
 	}
 }
