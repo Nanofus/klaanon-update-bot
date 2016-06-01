@@ -53,10 +53,17 @@ public class PostCache {
 	public static synchronized PostList update(PostList updatedPosts) {
 		PostList newPosts = updatedPosts.relativeComplement(CACHE);
 		
-		writeCache(updatedPosts);
-		CACHE = updatedPosts;
+		if(!newPosts.isEmpty()) {
+			writeCache(updatedPosts);
+			CACHE = readCache();
+		}
 		
 		return newPosts;
+	}
+	
+	/** Returns the current cache.*/
+	public static synchronized PostList cache() {
+		return CACHE;
 	}
 	
 	private static void writeCache(PostList posts) {

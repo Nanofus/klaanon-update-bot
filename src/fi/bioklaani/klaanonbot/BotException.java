@@ -4,6 +4,8 @@ package fi.bioklaani.klaanonbot;
 * Saves the original exception (optional) and a detail message.*/
 public class BotException extends RuntimeException {
 
+	private final static long serialVersionUID = -66666666666L;
+
 	private final String msg;
 	private final Throwable throwable;
 

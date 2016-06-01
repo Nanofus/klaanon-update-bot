@@ -20,11 +20,14 @@ public interface BotTask<A, R> {
 		return RunPolicy.no();
 	}
 	
-	/** Returns the {@code RunPolicy} that describes the repeatition
-	* of this task. Note that tasks should only be repeated after
-	* all of their succeeding tasks (as indicated by {@code then()})
-	* and their succeeding tasks have been completed.*/
-	public default RunPolicy repeat() {
+	/** Returns the {@code RunPolicy} that describes the execution
+	* of this task when executed after being retrieved from the
+	* {@code then()} tasks of another task. Note that to repeat
+	* itself, a task can return a {@code Supplier} of itself from
+	* {@code then()}. The default value, a {@code RunPolicy} that
+	* states that the task cannot be run, indicates that it is not
+	* allowed to chain this task.*/
+	public default RunPolicy chained() {
 		return RunPolicy.no();
 	}
 	
@@ -32,5 +35,10 @@ public interface BotTask<A, R> {
 	* after this task completes succesfully.*/
 	public default List<Supplier<BotTask<R, ?>>> then() {
 		return Collections.emptyList();
+	}
+	
+	/** Returns a string that describes this task. */
+	public default String getName() {
+		return getClass().getSimpleName();
 	}
 }
