@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import fi.bioklaani.klaanonbot.storage.PostCache;
+import fi.bioklaani.klaanonbot.Bot;
 
 /** Initializes everything.*/
 public class InitializeTask implements BotTask<Void, Void> {
@@ -14,6 +15,7 @@ public class InitializeTask implements BotTask<Void, Void> {
 
 	public Void run(Void ignored) {
 		PostCache.initialize();
+		Bot.initialize();
 		return null;
 	}
 	

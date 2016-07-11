@@ -1,0 +1,5 @@
+lib/*
+bin/*
+klaanonupdatebot.jar
+bot_config.json
+post_cache.json

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.time.Duration;
 
+import fi.bioklaani.klaanonbot.Bot;
 import fi.bioklaani.klaanonbot.PostList;
 import fi.bioklaani.klaanonbot.UpdateFormatter;
 
@@ -15,8 +16,9 @@ public class SendUpdatesTask implements BotTask<PostList, Void> {
 			Arrays.asList(ReadSiteTask::new);
 
 	public Void run(PostList newPosts) {
+		Bot.INSTANCE.updateChats();
 		if(!newPosts.isEmpty()) {
-			System.out.println(UpdateFormatter.format(newPosts));
+			Bot.INSTANCE.send(UpdateFormatter.format(newPosts));
 		}
 		return null;
 	}

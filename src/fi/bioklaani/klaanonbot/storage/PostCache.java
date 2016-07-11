@@ -8,8 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.FileSystems;
 
-import com.google.gson.Gson;
-
 import fi.bioklaani.klaanonbot.BotException;
 import fi.bioklaani.klaanonbot.PostList;
 import fi.bioklaani.klaanonbot.Utils;
@@ -17,8 +15,6 @@ import fi.bioklaani.klaanonbot.Utils;
 /** Manages locally cached list of {@code Post}s. All public methods are synchronized
 * to ensure correct behaviour while writing to and reading the cache.*/
 public class PostCache {
-
-	private final static Gson GSON = new Gson();
 
 	private final static Path POST_CACHE = FileSystems.getDefault().getPath("post_cache.json");
 	
@@ -69,7 +65,7 @@ public class PostCache {
 	private static void writeCache(PostList posts) {
 		try(BufferedWriter br = Files.newBufferedWriter(POST_CACHE,
 				StandardCharsets.UTF_8)) {
-			br.write(toJSON(posts));
+			br.write(Utils.toJSON(posts));
 		} catch(IOException e) {
 			throw new BotException(e, "Failed to write post cache");
 		} finally {}
@@ -78,17 +74,9 @@ public class PostCache {
 	private static PostList readCache() {
 		try(BufferedReader br = Files.newBufferedReader(POST_CACHE,
 				StandardCharsets.UTF_8)) {
-			return ofJSON(Utils.readBufferedReader(br));
+			return Utils.ofJSON(Utils.readBufferedReader(br), PostList.class);
 		} catch(IOException e) {
 			throw new BotException(e, "Failed to read post cache");
 		} finally {}
-	}
-	
-	private static String toJSON(PostList posts) {
-		return GSON.toJson(posts);
-	}
-	
-	private static PostList ofJSON(String json) {
-		return GSON.fromJson(json, PostList.class);
 	}
 }
